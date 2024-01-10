@@ -348,6 +348,19 @@ jobs:
       timeout: 20
       instances: '["old-stable-3004", "old-stable-3005", "stable-3005", "onedir-3005", "stable-3005-1", "stable-3006", "onedir-3006", "stable-3006-1", "git-master", "latest", "default"]'
 
+  debian-12:
+    name: Debian 12
+    if: github.event_name == 'push' || needs.collect-changed-files.outputs.run-tests == 'true'
+    uses: ./.github/workflows/test-linux.yml
+    needs:
+      - lint
+      - generate-actions-workflow
+    with:
+      distro-slug: debian-12
+      display-name: Debian 12
+      timeout: 20
+      instances: '["stable-3006", "onedir-3006", "stable-3006-1", "git-master", "latest", "default"]'
+
 
   fedora-36:
     name: Fedora 36
